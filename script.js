@@ -4,6 +4,7 @@ var texture;
 var selectedItem;
 var selectedFilter;
 
+
 function loadImage(src) {
     var image = new Image();
     image.onload = function() {
@@ -441,6 +442,11 @@ var filters = {
         }, function() {
             canvas.draw(texture).hueSaturation(this.hue, this.saturation).update();
         }),
+        new Filter('Vibrance', function() {
+            this.addSlider('amount', 'Amount', 0, 1, 0.5, 0.01);
+        }, function() {
+            canvas.draw(texture).vibrance(this.amount).update();
+        }),
         new Filter('Curves', function() {
             this.addCurves('points');
         }, function() {
@@ -456,7 +462,23 @@ var filters = {
             this.addSlider('strength', 'Strength', 0, 5, 2, 0.01);
         }, function() {
             canvas.draw(texture).unsharpMask(this.radius, this.strength).update();
-        })
+        }),
+        new Filter('Noise', function() {
+            this.addSlider('amount', 'Amount', 0, 1, 0.5, 0.01);
+        }, function() {
+            canvas.draw(texture).noise(this.amount).update();
+        }),
+        new Filter('Sepia', function() {
+            this.addSlider('sepia', 'Intensity', 0, 1, 0.5, 0.01);
+        }, function() {
+            canvas.draw(texture).sepia(this.sepia).update();
+        }),
+        new Filter('Vignette', function() {
+            this.addSlider('size', 'Size', 0, 1, 0.5, 0.01);
+            this.addSlider('amount', 'Amount', 0, 1, 0.5, 0.01);
+        }, function() {
+            canvas.draw(texture).vignette(this.size, this.amount).update();
+        }),
     ],
     'Blur': [
         new Filter('Zoom Blur', function() {
